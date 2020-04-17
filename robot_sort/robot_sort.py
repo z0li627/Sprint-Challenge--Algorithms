@@ -96,39 +96,25 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-        # print(self._position)
-        # print(self._item)
-        # print(self._list[self._position])
-        if self.light_is_on() == "OFF":
-            return
-        else:
-            self.set_light_off()
-            while self.can_move_right():
-                self.swap_item()
-                self.move_right()
-                if self.compare_item() == 1:
-                    self.swap_item()
-                    self.set_light_on()
-                    self.move_left()
-                    self.swap_item()
-                else:
-                    self.move_left()
-                    self.swap_item()
-                    self.move_right()
+        self.set_light_on()
+        while self._light == "ON": # go until the light is off, so until there is a change in the order of items
+            self.set_light_off()  # turn light off
+            while self.can_move_right():  # until we can move right
+                self.swap_item()  # pick up item
+                self.move_right() # move right
+                if self.compare_item() == 1: # compare the items, if bigger
+                    self.swap_item() # swap the items
+                    self.set_light_on() # indicate we swapped
+                    self.move_left() # go back
+                    self.swap_item() # swap the smaller item back to the list
+                    self.move_right() # move back right
+                else:                   # if it's smaller
+                    self.move_left()   # go back
+                    self.swap_item()   # put the item back to it's place
+                    self.move_right()  # move one right
             while self.can_move_left():
                 self.move_left()
-                # self.swap_item()
-                # self.move_left()
-                # if self.compare_item() == 1:
-                #     self.swap_item()
-                #     self.set_light_on()
-                #     self.move_right()
-                #     self.swap_item()
-                # else:
-                #     self.move_right()
-                #     self.swap_item()
-                #     self.move_left()
-                #     self.swap_item()
+
 
 
 if __name__ == "__main__":
